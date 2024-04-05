@@ -24,12 +24,14 @@ public class OrderRepository {
     }
 
     public void saveOrder(Order order){
-    	orderMap.put(order.getId(), order);
+    	if(order!=null)
+    		orderMap.put(order.getId(), order);
         // your code here
     }
 
     public void savePartner(String partnerId){
-    	partnerMap.put(partnerId, new DeliveryPartner(partnerId));
+    	if(!(partnerId==null || partnerId.trim()==""))
+    		partnerMap.put(partnerId, new DeliveryPartner(partnerId));
         // your code here
         // create a new partner with given partnerId and save it
     }
@@ -63,10 +65,9 @@ public class OrderRepository {
     }
 
     public Integer findOrderCountByPartnerId(String partnerId){
-    	if(partnerToOrderMap.containsKey(partnerId)) {
-    		return partnerToOrderMap.get(partnerId).size();
-    	}
-    	return 0;
+    	
+    	return partnerMap.get(partnerId).getNumberOfOrders();
+    	
         // your code here
     }
 
